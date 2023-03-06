@@ -1,0 +1,92 @@
+var latInput;
+var longInput;
+var popdensityInput;
+
+var elevationInput;
+var elevationInputLabelPrefix;
+var elevationInputLabelUnits;
+
+var lat = 0;
+var long = 0;
+var popdensity = 50; 
+
+
+function setup() {
+createCanvas(600, 600);
+ 
+latInput = createInput("0", "number").size(40,20); 
+latInput.position(90, 380); 
+  
+longInput = createInput("0", "number").size(40,20);
+longInput.position(90,420); 
+  
+popdensityInput = createInput ("0", "number").size(40,20);
+popdensityInput.position (90, 460);
+
+  
+
+latInputLabelPrefix = createElement('p', 'Latitude');
+  latInputLabelPrefix.position(
+    latInput.x - 80,
+    latInput.y - 10); 
+
+longInputLabelPrefix = createElement('p', 'Longitude');
+  longInputLabelPrefix.position(
+    longInput.x - 80,
+    longInput.y - 10); 
+  
+popdensityInputLabelPrefix = createElement('p', 'PopDensity');
+  popdensityInputLabelPrefix.position(
+    popdensityInput.x - 80,
+    popdensityInput.y - 10);
+  
+
+var latNum
+var longNum
+var popdensityNum
+
+}
+
+
+function draw() {      
+  background(20,180,255);
+
+  latNum = Number(
+    latInput.value(),
+  	10);
+  
+  longNum = Number(
+    longInput.value(),
+    10);
+  
+  popdensityNum = Number (
+    popdensityInput.value(),
+    10);
+  
+
+var x = longNum + 180
+var y = (-1* latNum + 90)
+var size = 50
+
+
+  
+if (popdensityNum < 0){
+    strokeWeight(2);
+    stroke(255, 0, 0);
+    line(x - 5, y - 5, x + 5, y + 5);
+    line(x + 5, y - 5, x - 5, y + 5);
+  }
+        
+  else if ((popdensityNum =>0)&&(popdensityNum<=100)) {
+		fill(0, 0, 0);
+        rect (x, y, size, size);
+  }
+  else if ((popdensityNum > 100)&&(popdensityNum<=200)) {
+        fill(0, 0, 0);
+        rect (x, y, size*2, size*2);
+  }
+  else if (popdensityNum >200) {
+		fill(0, 0, 0);
+        rect (x, y, size*3, size*3);
+  }
+}
