@@ -57,6 +57,15 @@
         font-weight: bold;
       }
 
+#button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
     </style>
   </head>
   <body>
@@ -70,6 +79,13 @@
       <div class="legend-item"><span class="legend-color" style= 'background-color:#fd8d3c;'></span><span class="legend-label">5000+ people</span></div>
       <div class="legend-item"><span class="legend-color" style= 'background-color:#fc4e2a;'></span><span class="legend-label">7500+ people</span></div>
       <div class="legend-item"><span class="legend-color" style= 'background-color:#e31a1c;'></span><span class="legend-label">10000+ people</span></div>
+    </div>
+
+<div id="button-container">
+      <button onclick="location.href='https://kentdante444.github.io/kentdante444-web/Total_Population'">Total Population</button>
+      <button onclick="location.href='https://kentdante444.github.io/kentdante444-web/Black_African_American'">Black and African American</button>
+      <button onclick="location.href='https://kentdante444.github.io/kentdante444-web/65_Years_over'">65 Years and over</button>
+      <button onclick="location.href='https://kentdante444.github.io/kentdante444-web/Income_below_poverty'">Income below poverty level</button>
     </div>
     
     <script>
