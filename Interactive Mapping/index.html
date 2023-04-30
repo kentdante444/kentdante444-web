@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a popup on hover</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoia2RhbnRlIiwiYSI6ImNsZXhjbjhwajAxZXg0M28yaHFjbnA1dWIifQ.vVnoYcNzAfHwi64sy_ypCQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/kdante/clh31od3v007x01r6ezrmfwit',
+        center: [-100.486052, 37.830348],
+        zoom: 2
+    });
+
+    let popup = new mapboxgl.Popup({ closeButton: false });
+
+    map.on('load', () => {
+        map.addSource('provinces', {
+            'type': 'geojson',
+            'data': 'https://kentdante444.github.io/kentdante444-web/Interactive%20Mapping/map%20(13).geojson'
+        });
+
+      
+        map.addLayer({
+            'id': 'provinces-layer',
+            'type': 'fill',
+            'source': 'provinces',
+            'layout': {},
+            'paint': {
+                'fill-color': '#627BC1',
+                'fill-opacity': 0.5
+              
+            }
+        });
+
+        // Add a hover effect to the provinces layer
+        map.on('mousemove', 'provinces-layer', (e) => {
+            // Change the cursor style as a UI indicator
+            map.getCanvas().style.cursor = 'pointer';
+
+            // Get the province name and population
+            const properties = e.features[0].properties;
+            const provinceName = properties.prov_name_en;
+            const population = properties.Population;
+
+            // Set the popup content and position
+            popup.setLngLat(e.lngLat)
+                .setHTML(`<p><strong>${provinceName}</strong></p><p>Population: ${population}</p>`)
+                .addTo(map);
+        });
+
+        // Reset cursor style and remove popup on mouseleave
+        map.on('mouseleave', 'provinces-layer', () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
+    });
+</script>
+</body>
+</html>
